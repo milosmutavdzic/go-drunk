@@ -1,0 +1,21 @@
+{
+    "parser": "babel-eslint",
+    "env":{
+        "browser":true,
+        "es6": true
+    },  
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
+    },
+    "globals": {
+        "BASENAME": "readonly",
+        "API_URL": "readonly",
+        "MOCK_API_URL": "readonly"
+    },   
+    "rules": {
+        "no-console":"off"
+    },
+    "extends": ["eslint:recommended", "plugin:react/recommended"]
+  }
