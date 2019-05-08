@@ -31,7 +31,7 @@ const styles = theme => ({
     },
     avatar: {
         margin: theme.spacing.unit,
-        backgroundColor: theme.palette.secondary.main,
+        backgroundColor: theme.palette.primary.main,
     },
     form: {
         width: '100%', // Fix IE 11 issue.
@@ -43,7 +43,7 @@ const styles = theme => ({
 });
 
 const SuccessMessage = (props) => {
-    let { classes } = props
+    let { classes, title, info, redirectLink, redirectLinkInfo } = props
     return (
         <main className={classes.main}>
             <CssBaseline />
@@ -51,18 +51,18 @@ const SuccessMessage = (props) => {
                 <Avatar className={classes.avatar}>
                     <DoneOutlinedIcon />
                 </Avatar>
-                <Typography component="h1" variant="h5">
-                    Reset password
+                <Typography variant="h5" gutterBottom>
+                    {title}
               </Typography>
-                <Typography>
-                    Your password has been reset.
+                <Typography variant="subtitle1" gutterBottom>
+                    {info}
               </Typography>
-                <Typography>
+                <Typography variant="subtitle2" gutterBottom>
                     Click&nbsp;
-                    <MLink component={Link} to="/Login">
+                    <MLink component={Link} to={redirectLink ? redirectLink : "/login"}>
                         here
                     </MLink>&nbsp;
-                    to login with your new credentials.
+                    {redirectLinkInfo}
                 </Typography>
             </Paper>
         </main>
@@ -70,7 +70,11 @@ const SuccessMessage = (props) => {
 }
 
 SuccessMessage.propTypes = {
-    classes: PropTypes.object
+    classes: PropTypes.object,
+    title: PropTypes.string,
+    info: PropTypes.string,
+    redirectLink: PropTypes.string,
+    redirectLinkInfo: PropTypes.string
 }
 
 

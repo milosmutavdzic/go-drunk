@@ -5,6 +5,6 @@ export const authService = {
 };
 
 async function login(username,password){
-    const response = await API.post('/witness/users/login',{username,password});
+    const response = await API.post('/authenticate',{username,password});
     return response;        
 }

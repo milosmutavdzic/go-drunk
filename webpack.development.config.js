@@ -16,13 +16,6 @@ let pathsToClean = [
 let cleanOptions = {
 }
 
-// const JS_LOADER = {
-//     test: /\.(js|jsx)$/,
-//     loaders: [
-//         'babel-loader'
-//     ],
-//     exclude: /node_modules/
-// }
 const webpackConfig = {
     mode: 'development',
     entry: [
@@ -73,9 +66,7 @@ const webpackConfig = {
         new CleanWebpackPlugin(pathsToClean, cleanOptions),
         new webpack.DefinePlugin({
             BASENAME: JSON.stringify("/"),
-            "API_URL": JSON.stringify("https://testtoken.coinkernel.com"),
-            "MOCK_API_URL": JSON.stringify("http://localhost:3000"),
-            "BLOCKCHAIN_API_URL": JSON.stringify("https://testtoken.coinkernel.com/blockchain_api_redirect")
+            "API_URL": JSON.stringify("http://localhost:3000")
         })
     ],
     devServer: {

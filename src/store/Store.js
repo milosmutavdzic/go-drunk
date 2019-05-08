@@ -7,7 +7,7 @@ import rootReducer from '../reducers';
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const persistConfig = {
-    key: 'advertiser-platform',
+    key: 'go-drunk',
     storage,
     whitelist: ['auth']
 }

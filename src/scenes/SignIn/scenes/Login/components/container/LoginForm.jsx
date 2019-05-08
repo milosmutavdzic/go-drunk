@@ -19,13 +19,13 @@ class LoginForm extends Component {
     submitValues = ({ username, password }) => {              
         let {login} = this.props;
         login(username,password,function(error){            
-            openSnackbar(error.message,'error',{vertical:'top',horizontal:'right'});
+            openSnackbar(error,'error',{vertical:'top',horizontal:'right'});
         });       
     }
 
     render(){
-        const {isAuthenticated} = this.props
-        const {error} = this.props
+        const { isAuthenticated } = this.props
+        const { error } = this.props
         const { from } = this.props.location.state || { from: { pathname: '/' } }        
         if(isAuthenticated){             
            return(                        
@@ -59,7 +59,7 @@ const validationSchema = Yup.object({
 LoginForm.propTypes = {
     login: PropTypes.func,
     isAuthenticated: PropTypes.bool,
-    error: PropTypes.object,
+    error: PropTypes.string,
     location: PropTypes.shape({
         state: PropTypes.object
     })

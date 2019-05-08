@@ -4,8 +4,7 @@ import { Switch } from "react-router-dom";
 import { withStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
-import {MainPanel} from '../../scenes/Main/components/presentational/MainPanel.jsx';
-import {Search} from '../../scenes/Search/components/presentational/Search.jsx';
+import MapWrapper from '../../scenes/Main/components/presentational/MapWrapper.jsx';
 import {Payments} from '../../scenes/Payments/components/presentational/Payments.jsx';
 import {Campaign} from '../../scenes/Campaign/components/presentational/Campaign.jsx';
 import Profile from '../../scenes/Profile/components/container/Profile.jsx';
@@ -20,9 +19,11 @@ const styles = theme => ({
   },     
   content: {
     flexGrow: 1,
-    padding: theme.spacing.unit * 3,
     height: '100vh',
-    overflow: 'auto',
+    overflow: 'hidden',
+    '& div:not([class])>div::first-child': {
+      height: 'calc(100vh - 200px) !important',
+    }
   },
   chartContainer: {
     marginLeft: -22,
@@ -48,8 +49,7 @@ class Dashboard extends Component {
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
           <Switch>
-          <PrivateRoute exact path="/" component={()=><MainPanel classes={classes}/>} />
-          <PrivateRoute path="/Search" component={Search} />
+          <PrivateRoute exact path="/" component={MapWrapper} />
           <PrivateRoute path="/Campaign" component={Campaign} />
           <PrivateRoute path="/Payments" component={Payments} />
           <PrivateRoute path="/Profile" component={Profile}/>  
