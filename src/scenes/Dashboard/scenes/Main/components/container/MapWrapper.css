@@ -1,0 +1,12 @@
+.map {
+    width: 100%;
+    height: calc(100% - 64px);
+}
+
+.leaflet-popup-content {
+    width: 200px;
+}
+
+.leaflet-popup-content-wrapper {
+    background-color: #FAFAFA;
+}

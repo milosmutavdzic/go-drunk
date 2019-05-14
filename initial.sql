@@ -29,10 +29,12 @@ CREATE TABLE `locations` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `votes` (
-  `id` int(11) NOT NULL,
   `location_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
   `valid_location` tinyint(1) DEFAULT '0',
-  PRIMARY KEY (`id`),
+  PRIMARY KEY (`location_id`,`user_id`),
   KEY `location_id` (`location_id`),
-  CONSTRAINT `votes_ibfk_1` FOREIGN KEY (`location_id`) REFERENCES `locations` (`id`)
+  CONSTRAINT `votes_ibfk_1` FOREIGN KEY (`location_id`) REFERENCES `locations` (`id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `votes_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

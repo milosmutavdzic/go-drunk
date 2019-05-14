@@ -1,0 +1,5 @@
+export const votingConstants = {
+    VOTING_REQUEST: 'VOTING_REQUEST',
+    VOTING_SUCCESS: 'VOTING_SUCCESS',
+    VOTING_FAILURE: 'VOTING_FAILURE',
+};
