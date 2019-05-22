@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
-import classNames from "classnames";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Button from '@material-ui/core/Button';
@@ -12,44 +11,14 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 
-const styles = theme => ({
-  root: {
-    "max-width": "60em",
-    margin: "60px auto auto auto"
-  },
-  title: {
-    "margin-bottom": "40px",
-    color: "#3f51b5"
-  },
-  paper: {
-    ...theme.mixins.gutters(),
-    paddingTop: theme.spacing.unit * 2,
-    paddingBottom: theme.spacing.unit * 2
-  },
-  form: {
-    'max-width:': '90%',
-    marginTop: theme.spacing.unit,
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`
-  },
-  margin: {
-    margin: theme.spacing.unit
-  },
-  textField: {
-    flexBasis: 200
-  },
-  submit: {
-    marginTop: theme.spacing.unit * 3,
-    'max-width:': theme.spacing.unit * 9,
-  }
-});
-
 class ResetPassword extends React.Component {
   state = {
+    showOldPassword: false,
     showPassword: false,
     showRPassword: false
+  };
+  handleClickShowPassword = () => {
+    this.setState(state => ({ showPassword: !state.showOldPassword }));
   };
   handleClickShowPassword = () => {
     this.setState(state => ({ showPassword: !state.showPassword }));
@@ -59,9 +28,9 @@ class ResetPassword extends React.Component {
   };
 
   render() {
-    const { 
+    const {
       classes,
-      values: { password, rpassword },
+      values: { username, oldpassword, password, rpassword },
       errors,
       touched,
       handleChange,
@@ -80,21 +49,34 @@ class ResetPassword extends React.Component {
           <Typography variant="h5" className={classes.title}>
             Reset Password
           </Typography>
-          <form className={classes.form} onSubmit={handleSubmit}>
-          <Grid container spacing={24}>
-              <Grid item xs={12} sm={6}>
+          <form onSubmit={handleSubmit}>
+            <Grid container spacing={24} >
+              <Grid item xs={12}>
                 <TextField
-                  id="password"
-                  className={classNames(classes.margin, classes.textField)}
+                  id="username"
+                  variant="outlined"
+                  fullWidth
+                  type={"text"}
+                  label="username"
+                  helperText={touched.username ? errors.username : ""}
+                  error={touched.username && Boolean(errors.username)}
+                  value={username}
+                  onChange={(e) => change("username", e)}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  id="oldpassword"
                   variant="outlined"
                   fullWidth
                   type={this.state.showPassword ? "text" : "password"}
-                  label="new password"
-                  helperText={touched.password?errors.password:""}
-                  error={touched.password && Boolean(errors.password)}
-                  value={password}
-                  onChange={(e)=>change("password",e)}
+                  label="old password"
+                  helperText={touched.oldpassword ? errors.oldpassword : ""}
+                  error={touched.oldpassword && Boolean(errors.oldpassword)}
+                  value={oldpassword}
+                  onChange={(e) => change("oldpassword", e)}
                   InputProps={{
+                    className:classes.amountField,
                     endAdornment: (
                       <InputAdornment position="end">
                         <IconButton
@@ -104,27 +86,57 @@ class ResetPassword extends React.Component {
                           {this.state.showPassword ? (
                             <VisibilityOff />
                           ) : (
-                            <Visibility />
-                          )}
+                              <Visibility />
+                            )}
                         </IconButton>
                       </InputAdornment>
                     )
                   }}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12}>
+                <TextField
+                  id="password"
+                  variant="outlined"
+                  fullWidth
+                  type={this.state.showPassword ? "text" : "password"}
+                  label="new password"
+                  helperText={touched.password ? errors.password : ""}
+                  error={touched.password && Boolean(errors.password)}
+                  value={password}
+                  onChange={(e) => change("password", e)}
+                  InputProps={{
+                    className:classes.amountField,
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="Toggle password visibility"
+                          onClick={this.handleClickShowPassword}
+                        >
+                          {this.state.showPassword ? (
+                            <VisibilityOff />
+                          ) : (
+                              <Visibility />
+                            )}
+                        </IconButton>
+                      </InputAdornment>
+                    )
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12}>
                 <TextField
                   id="rpassword"
-                  className={classNames(classes.margin, classes.textField)}
                   variant="outlined"
                   fullWidth
                   type={this.state.showRPassword ? "text" : "password"}
-                  helperText={touched.rpassword?errors.rpassword:""}
+                  helperText={touched.rpassword ? errors.rpassword : ""}
                   error={touched.rpassword && Boolean(errors.rpassword)}
                   label="repeat password"
                   value={rpassword}
-                  onChange={(e)=>change("rpassword",e)}
+                  onChange={(e) => change("rpassword", e)}
                   InputProps={{
+                    className:classes.amountField,
                     endAdornment: (
                       <InputAdornment position="end">
                         <IconButton
@@ -134,25 +146,27 @@ class ResetPassword extends React.Component {
                           {this.state.showRPassword ? (
                             <VisibilityOff />
                           ) : (
-                            <Visibility />
-                          )}
+                              <Visibility />
+                            )}
                         </IconButton>
                       </InputAdornment>
                     )
                   }}
                 />
               </Grid>
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.submit}
-                disabled={!isValid}
-              >
-                RESET
+              <Grid item xs={12}>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  className={classes.submit}
+                  disabled={!isValid}
+                >
+                  RESET
               </Button>
-          </Grid>
+              </Grid>
+            </Grid>
           </form>
         </Paper>
       </div>
@@ -169,5 +183,26 @@ ResetPassword.propTypes = {
   isValid: PropTypes.bool,
   setFieldTouched: PropTypes.func
 };
+
+const styles = theme => ({
+  root: {
+    maxWidth: '60em',
+    margin: '60px auto auto auto'
+  },
+  title: {
+    'margin-bottom': '40px',
+    color: '#3f51b5'
+  },
+  paper: {
+    ...theme.mixins.gutters(),
+    padding: theme.spacing.unit * 4
+  },
+  amountField: {
+    boxSizing: 'border-box',
+  },
+  submit: {
+    marginTop: theme.spacing.unit * 3,
+  }
+});
 
 export default withStyles(styles)(ResetPassword);

@@ -1,19 +1,13 @@
-import { votingService } from '../services/voting.service.js';
-import { votingConstants } from '../constants/voting.constants.js';
+import { locationServices } from '../services/location.services';
+import { locationConstants } from '../constants/location.constants.js'
 
-export const votingActions = {
-    vote
-};
-
-export const authActions = {
-    vote,
-};
+const { votingConstants } = locationConstants;
 
 function vote( votingData,successHandler, errorHandler) {    
     return async dispatch => {
         try {
             dispatch(request());
-            const result = await votingService(votingData);           
+            const result = await locationServices.vote(votingData);           
             if (result.status == 200) {
                 dispatch(success(result.data.updatedLocation));
                 successHandler();
@@ -31,3 +25,7 @@ function vote( votingData,successHandler, errorHandler) {
     function success(data) { return { type: votingConstants.VOTING_SUCCESS, data }; }
     function failure(error) { return { type: votingConstants.VOTING_FAILURE, error }; }
 }
+
+export const votingActions = {
+    vote
+};

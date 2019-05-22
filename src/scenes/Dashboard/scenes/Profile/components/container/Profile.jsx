@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { ProfileView } from '../presentational/ProfileView.jsx';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import ProfileView  from '../presentational/ProfileView.jsx';
 import { profileServices } from '../../services/profile.services.js';
 import Notifier, { openSnackbar } from '../../../../../../components/presentational/Notifier.jsx';
 
-export default class Profile extends Component {
+class Profile extends Component {
 
     constructor(props) {
         super(props)
@@ -12,25 +14,24 @@ export default class Profile extends Component {
         }
     }
 
-    handleSubmit = async (values, actions) => {       
+    handleSubmit = async (values, actions) => {
         let response = await profileServices.saveProfileData(values);
-        if(response.status=="ok"){
-            openSnackbar('Profile data successfully saved.','success',{vertical:'bottom',horizontal:'right'});
+        if(response.success === true){
+            openSnackbar('Profile information successfully updated.','success',{vertical:'bottom',horizontal:'right'});
         }
         else{
-            openSnackbar(response.error.errorMessage,'error',{vertical:'bottom',horizontal:'right'});
+            openSnackbar(response.message || response.error,'error',{vertical:'bottom',horizontal:'right'});
         }
         actions.setSubmitting(false);
-        console.log(response);
     }
 
     async componentDidMount() {
-        let response = await profileServices.getProfileData();
+        let response = await profileServices.getProfileData(this.props.user_id);
         this.setState({ profile: response.data })       
     }
 
     render() {
-        let profile = this.state.profile
+        let profile = this.state.profile;
         return (
             <React.Fragment>
                 <Notifier />
@@ -39,3 +40,15 @@ export default class Profile extends Component {
         )
     }
 }
+
+Profile.propTypes = {
+    user_id: PropTypes.number.isRequired,
+}
+
+const mapStateToProps = state => {
+    return {
+      user_id: state.auth.id,
+    }
+}
+
+export default connect(mapStateToProps)(Profile);

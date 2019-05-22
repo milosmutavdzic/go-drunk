@@ -2,7 +2,11 @@
     width: 100%;
     height: calc(100% - 64px);
 }
-
+.map-with-cross-cursor {
+    width: 100%;
+    height: calc(100% - 64px);
+    cursor: crosshair !important;
+}
 .leaflet-popup-content {
     width: 200px;
 }

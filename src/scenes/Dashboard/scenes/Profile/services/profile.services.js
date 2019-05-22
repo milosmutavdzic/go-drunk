@@ -1,22 +1,20 @@
-import {MOCK_API} from '~/src/api/Api.js';
+import { API } from '~/src/api/Api.js';
+import { setAuthToken } from '~/src/api/setAuthToken.js';
+
 
 export const profileServices = {
     getProfileData,
     saveProfileData,
 }
 
-async function getProfileData(){
-    const response =  await MOCK_API.get("/profile?status=ok");
-    return response.data[0]
+async function getProfileData(id){
+    setAuthToken();
+    const response =  await API.get(`/users?id=${id}`);
+    return response.data
 }
 
-async function saveProfileData(profile, error){
-    if(error==true){
-        const response = await MOCK_API.get("/profile/1")
-        return response.data
-    }
-    else{
-        const response = await MOCK_API.patch("/profile/0",{"data":profile})
-        return response.data
-    }
+async function saveProfileData(profile){
+    setAuthToken();
+    const response = await API.put(`/users?id=${profile.id}`,{"data":profile})
+    return response.data
 }

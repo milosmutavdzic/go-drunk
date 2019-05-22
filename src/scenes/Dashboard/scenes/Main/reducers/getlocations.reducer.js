@@ -1,8 +1,10 @@
-import { getlocationsConstants } from '../constants/getlocations.constants.js'
+import { locationConstants } from '../constants/location.constants.js'
+
+const { getlocationsConstants } = locationConstants;
 
 const initialState = {
     loading: undefined,
-    error:undefined,
+    error: undefined,
     markers: null
 }
 

@@ -13,21 +13,29 @@ class ResetPasswordForm extends Component {
         super(props);
       }
   
-    submitValues = ({ password, rpassword }) => {              
+    submitValues = ({ username, oldpassword, password, rpassword }) => {              
         let {resetPass} = this.props;
-        resetPass(password,rpassword, function(error){
+        resetPass( { username, oldpassword, password, rpassword },
+            function(success){
+                openSnackbar(success.message,'success',{vertical:'top',horizontal:'right'});
+            },
+            function(error){
             openSnackbar(error.message,'error',{vertical:'top',horizontal:'right'});
         });       
     }
 
     render(){
-        const {error} = this.props
-        const values = {  password: "", rpassword: "" };
+        const values = {
+            username: "",
+            oldpassword: "",
+            password: "",
+            rpassword: ""
+        };
         return (
             <React.Fragment>
                 <Notifier/>
                 <Formik
-                    render={props => <ResetPassword {...props} error={error} />}
+                    render={props => <ResetPassword {...props} />}
                     initialValues={values}
                     validationSchema={validationSchema}
                     onSubmit={this.submitValues} />
@@ -38,29 +46,31 @@ class ResetPasswordForm extends Component {
 }
 
 const validationSchema = Yup.object({
+    username: Yup.string("")
+    .min(5, "Username must contain at least 5 characters")
+    .required("Enter username"),
+    oldpassword: Yup.string("")
+    .min(8, "Password must contain at least 8 characters")
+    .required("Enter old password"),
     password: Yup.string("")
     .min(8, "Password must contain at least 8 characters")
+    .notOneOf([Yup.ref('oldpassword')],'New password must be different from old one!')
     .required("Enter new password"),
     rpassword: Yup.string("")
-        .min(8, "Password must contain at least 8 characters")
-        .required("Repeat password")
+    .min(8, "Password must contain at least 8 characters")
+    .oneOf([Yup.ref('password')], 'Passwords are not the same!')
+    .required("Repeat password")
 });
 
 ResetPasswordForm.propTypes = {
-    resetPass: PropTypes.func,
-    error: PropTypes.object,
+    resetPass: PropTypes.func
 }
 
-const mapStateToProps = state => {
-    return {
-        error: state.resetPassActions ? state.resetPassActions.error : null  
-    }
-}
 const mapDispatchToProps = {  
-    resetPass: (password, rpassword, errorHandler) => resetPassActions.resetPass(password, rpassword, errorHandler)       
+    resetPass: (resetPassData, successHandler, errorHandler) => resetPassActions.resetPass(resetPassData, successHandler, errorHandler)       
   }
 
-export default connect(mapStateToProps,mapDispatchToProps)(ResetPasswordForm);
+export default connect(null,mapDispatchToProps)(ResetPasswordForm);
 
 
 

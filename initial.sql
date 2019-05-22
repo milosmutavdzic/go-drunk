@@ -19,9 +19,10 @@ CREATE TABLE `users` (
 CREATE TABLE `locations` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
-  `lng` decimal(9,6) DEFAULT NULL,
   `lat` decimal(9,6) DEFAULT NULL,
-  `active` tinyint(4) DEFAULT NULL,
+  `lng` decimal(9,6) DEFAULT NULL,
+  `active` tinyint(4) DEFAULT '1',
+  `patrol_type` tinyint(4) NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),

@@ -1,4 +1,6 @@
-import { votingConstants } from '../constants/voting.constants.js'
+import { locationConstants } from '../constants/location.constants.js'
+
+const { votingConstants } = locationConstants;
 
 const initialState = {
     loading:false,

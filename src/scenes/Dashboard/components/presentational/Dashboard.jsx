@@ -8,8 +8,30 @@ import MapWrapper from '../../scenes/Main/components/container/MapWrapper.jsx';
 import Profile from '../../scenes/Profile/components/container/Profile.jsx';
 import PrivateRoute from '../../../../components/container/PrivateRoute.jsx';
 import DashboardBar from './DashboardBar.jsx';
-import ChangePassword from '../../scenes/ChangePassword/components/container/ChangePassword.jsx';
 
+class Dashboard extends Component {
+
+  render() {
+    const { classes } = this.props;
+    return (
+      <div className={classes.root}>
+        <CssBaseline />    
+        <DashboardBar/>
+        <main className={classes.content}>
+          <div className={classes.appBarSpacer} />
+          <Switch>
+          <PrivateRoute exact path="/" component={MapWrapper} />
+          <PrivateRoute path="/profile" component={Profile}/>  
+          </Switch>
+        </main>
+      </div>
+    );
+  }
+}
+
+Dashboard.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
 
 const styles = theme => ({
   root: {
@@ -30,30 +52,5 @@ const styles = theme => ({
   },
   appBarSpacer: theme.mixins.toolbar
 });
-
-class Dashboard extends Component {
-
-  render() {
-    const { classes } = this.props;
-    return (
-      <div className={classes.root}>
-        <CssBaseline />    
-        <DashboardBar/>
-        <main className={classes.content}>
-          <div className={classes.appBarSpacer} />
-          <Switch>
-          <PrivateRoute exact path="/" component={MapWrapper} />
-          <PrivateRoute path="/Profile" component={Profile}/>  
-          <PrivateRoute path="/ChangePassword" component={ChangePassword}/>  
-          </Switch>
-        </main>
-      </div>
-    );
-  }
-}
-
-Dashboard.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
 export default withStyles(styles)(Dashboard);

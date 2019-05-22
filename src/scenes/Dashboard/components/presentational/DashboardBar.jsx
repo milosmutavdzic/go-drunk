@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component }  from 'react';
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 import {authActions} from '../../../SignIn/scenes/Login/actions/auth.actions.js';
 import Avatar from '@material-ui/core/Avatar';
@@ -12,27 +13,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import {withRouter} from 'react-router-dom';
-
-
-const styles = theme => ({
-    img: {
-        backgroundColor: theme.palette.primary.main,
-        width: 40,
-        height: 40,
-        marginLeft: 20,
-        marginRight: 20
-    },
-    menuButton: {
-        marginLeft: 12,
-        marginRight: 36,
-    },
-    menuButtonHidden: {
-        display: 'none',
-    },
-    title: {
-        flexGrow: 1,
-    }  
-});
 
 class DashboardBar extends Component {
     state = {
@@ -51,11 +31,6 @@ class DashboardBar extends Component {
         this.props.history.push('/Profile')
     }
 
-    handleChangePassword = () =>{
-        this.setState({ anchorEl: null });
-        this.props.history.push('/ChangePassword')
-    }
-
     handleLogout = ()=> {       
         this.setState({anchorEl: null});
         this.props.logout();
@@ -71,8 +46,10 @@ class DashboardBar extends Component {
                     position="absolute"
                 >
                     <Toolbar disableGutters={!this.state.open} className={classes.toolbar}>
-                        <Avatar src="./favicon.ico" className={classes.img}>
-                        </Avatar>
+                        <Link to="/">
+                            <Avatar src="./favicon.ico" className={classes.img}>
+                            </Avatar>
+                        </Link>
                         <Typography
                             component="h1"
                             variant="h6"
@@ -105,7 +82,6 @@ class DashboardBar extends Component {
                             onClose={this.handleClose}
                         >
                             <MenuItem onClick={this.handleProfile}>Profile</MenuItem>
-                            <MenuItem onClick={this.handleChangePassword}>Change password</MenuItem>
                             <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
                         </Menu>
                     </Toolbar>
@@ -124,5 +100,25 @@ DashboardBar.propTypes = {
 const mapDispatchToProps = {  
     logout: () => authActions.logout()     
 }
+
+const styles = theme => ({
+    img: {
+        backgroundColor: theme.palette.primary.main,
+        width: 40,
+        height: 40,
+        marginLeft: 20,
+        marginRight: 20
+    },
+    menuButton: {
+        marginLeft: 12,
+        marginRight: 36,
+    },
+    menuButtonHidden: {
+        display: 'none',
+    },
+    title: {
+        flexGrow: 1,
+    }  
+});
 
 export default connect(null,mapDispatchToProps)(withStyles(styles)(withRouter(DashboardBar)));

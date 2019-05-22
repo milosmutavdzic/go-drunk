@@ -5,6 +5,6 @@ export const registerServices={
 }
 
 async function createNewUser(userData){
-    const response = await API.post('/register', userData);
+    const response = await API.post('/users', userData);
     return response;
 }

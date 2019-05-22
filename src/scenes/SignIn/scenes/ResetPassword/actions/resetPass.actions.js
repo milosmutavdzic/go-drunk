@@ -1,29 +1,22 @@
-import { resetPassConstants } from '../constants/resetPass.constants';
 import { resetPassService } from '../services/resetPass.service';
 
 export const resetPassActions = {
     resetPass
 };
 
-function resetPass(password, rpassword, errorHandler) {    
-    return async dispatch => {
+function resetPass(resetPassData, successHandler, errorHandler) {
+    return async () => {
         try {
-            dispatch(request());
-            const result = await resetPassService.resetPass( password, rpassword);           
+            const result = await resetPassService.resetPassword(resetPassData);
             if (result.status == 200) {
-                dispatch(success(result.data));
-            }
-            else {
-                dispatch(failure(result));
+                successHandler(result);
+            } else {
+                errorHandler(result.data);
             }
         }
-        catch (error) {   
-            dispatch(failure(error.response.data.error));
-            errorHandler(error.response.data.error);
+        catch (error) {
+            errorHandler(error.response.data);
         }
     }
-    function request() { return { type: resetPassConstants.RESET_PASSWORD_REQUEST }; }
-    function success(data) { return { type: resetPassConstants.RESET_PASSWORD_SUCCESS, data }; }
-    function failure(error) { return { type: resetPassConstants.RESET_PASSWORD_FAILURE, error }; }
 }
 

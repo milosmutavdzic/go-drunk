@@ -1,15 +1,13 @@
-import { getlocationsService } from '../services/getlocations.service.js';
-import { getlocationsConstants } from '../constants/getlocations.constants.js';
+import { locationServices } from '../services/location.services';
+import { locationConstants } from '../constants/location.constants.js'
 
-export const getlocationsActions = {
-    getlocations
-};
+const { getlocationsConstants } = locationConstants;
 
 function getlocations(errorHandler) {    
     return async dispatch => {
         try {
             dispatch(request());
-            const result = await getlocationsService();
+            const result = await locationServices.getlocations();
             if (result.status == 200) {
                 dispatch(success(result.data));
             }
@@ -17,8 +15,8 @@ function getlocations(errorHandler) {
                 dispatch(failure(result));
             }
         }
-        catch (error) {   
-            dispatch(failure(error.response.error));
+        catch (error) {
+            dispatch(failure(error));
             errorHandler(error.response.error);
         }
     }
@@ -26,3 +24,7 @@ function getlocations(errorHandler) {
     function success(data) { return { type: getlocationsConstants.GET_LOCATIONS_SUCCESS, data }; }
     function failure(error) { return { type: getlocationsConstants.GET_LOCATIONS_FAILURE, error }; }
 }
+
+export const getlocationsActions = {
+    getlocations
+};
