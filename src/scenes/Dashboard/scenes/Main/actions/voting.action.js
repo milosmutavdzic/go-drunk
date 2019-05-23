@@ -10,7 +10,7 @@ function vote( votingData,successHandler, errorHandler) {
             const result = await locationServices.vote(votingData);           
             if (result.status == 200) {
                 dispatch(success(result.data.updatedLocation));
-                successHandler();
+                successHandler(result.data.message);
             }
             else {
                 dispatch(failure(result));

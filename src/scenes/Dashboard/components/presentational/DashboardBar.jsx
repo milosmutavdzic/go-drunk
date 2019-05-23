@@ -45,7 +45,7 @@ class DashboardBar extends Component {
                 <AppBar
                     position="absolute"
                 >
-                    <Toolbar disableGutters={!this.state.open} className={classes.toolbar}>
+                    <Toolbar disableGutters={!this.state.open}>
                         <Link to="/">
                             <Avatar src="./favicon.ico" className={classes.img}>
                             </Avatar>

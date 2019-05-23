@@ -10,6 +10,7 @@ import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import Header from "../../../../../../components/presentational/Header.jsx";
 
 class ResetPassword extends React.Component {
   state = {
@@ -17,8 +18,8 @@ class ResetPassword extends React.Component {
     showPassword: false,
     showRPassword: false
   };
-  handleClickShowPassword = () => {
-    this.setState(state => ({ showPassword: !state.showOldPassword }));
+  handleClickShowOldPassword = () => {
+    this.setState(state => ({ showOldPassword: !state.showOldPassword }));
   };
   handleClickShowPassword = () => {
     this.setState(state => ({ showPassword: !state.showPassword }));
@@ -45,6 +46,7 @@ class ResetPassword extends React.Component {
     };
     return (
       <div className={classes.root}>
+        <Header/>
         <Paper className={classes.paper}>
           <Typography variant="h5" className={classes.title}>
             Reset Password
@@ -69,7 +71,7 @@ class ResetPassword extends React.Component {
                   id="oldpassword"
                   variant="outlined"
                   fullWidth
-                  type={this.state.showPassword ? "text" : "password"}
+                  type={this.state.showOldPassword ? "text" : "password"}
                   label="old password"
                   helperText={touched.oldpassword ? errors.oldpassword : ""}
                   error={touched.oldpassword && Boolean(errors.oldpassword)}
@@ -81,9 +83,9 @@ class ResetPassword extends React.Component {
                       <InputAdornment position="end">
                         <IconButton
                           aria-label="Toggle password visibility"
-                          onClick={this.handleClickShowPassword}
+                          onClick={this.handleClickShowOldPassword}
                         >
-                          {this.state.showPassword ? (
+                          {this.state.showOldPassword ? (
                             <VisibilityOff />
                           ) : (
                               <Visibility />
@@ -186,8 +188,8 @@ ResetPassword.propTypes = {
 
 const styles = theme => ({
   root: {
-    maxWidth: '60em',
-    margin: '60px auto auto auto'
+    maxWidth: '50%',
+    margin: '100px auto auto auto'
   },
   title: {
     'margin-bottom': '40px',

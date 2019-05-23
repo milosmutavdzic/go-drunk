@@ -7,8 +7,7 @@ import * as Yup from 'yup';
 import { Redirect } from "react-router-dom";
 import Notifier, { openSnackbar } from '~/src/components/presentational/Notifier.jsx';
 
-
-import {authActions} from '../../actions/auth.actions';
+import { authActions } from '../../actions/auth.actions';
 
 class LoginForm extends Component {
 

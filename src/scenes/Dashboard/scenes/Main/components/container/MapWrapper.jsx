@@ -16,7 +16,6 @@ import Search from './Search.jsx';
 
 import './MapWrapper.css';
 
-
 class MapWrapper extends React.Component {
 
   state = {

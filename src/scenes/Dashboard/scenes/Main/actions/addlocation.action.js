@@ -10,7 +10,7 @@ function addlocation( locationData, successHandler, errorHandler) {
             const result = await locationServices.addLocation(locationData);           
             if (result.status == 200) {
                 dispatch(success(result.data));
-                successHandler();
+                successHandler(result.data.message);
             }
             else {
                 dispatch(failure(result));

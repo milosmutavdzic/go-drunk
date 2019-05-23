@@ -4,13 +4,11 @@ import { Formik } from 'formik';
 import PropTypes from 'prop-types';
 import * as Yup from "yup";
 import Registration from '../presentational/Registration.jsx';
-// import SuccessMessage from '../../../../../../components/presentational/SuccessMessage.jsx';
 import Loader from '../../../../../../components/presentational/Loader.jsx';
 import Notifier, { openSnackbar } from '~/src/components/presentational/Notifier.jsx';
-
+import SuccessMessage from '../../../../../../components/presentational/SuccessMessage.jsx';
 
 import { registerActions } from '../../actions/register.actions'
-import SuccessMessage from '../../../../../../components/presentational/SuccessMessage.jsx';
 
 
 const phoneRegex = /^[0-9()-]+$/;

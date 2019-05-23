@@ -9,39 +9,15 @@ import ExposurePlus1Icon from '@material-ui/icons/ExposurePlus1';
 import grey from '@material-ui/core/colors/grey';
 import Button from '@material-ui/core/Button';
 
-const styles = () => ({
-    root: {
-        flexGrow: 1,
-    },
-    possibility: {
-        width: 100,
-        height: 100,
-        padding: 5,
-        color: '#fff',
-        backgroundColor: grey[400],
-    },
-    votes: {
-        marginBottom: 8,
-        color: '#fff',
-        backgroundColor: grey[800]
-    },
-    lastEdit: {
-        marginTop: 8,
-        marginBottom: 18,
-        color: '#fff',
-        backgroundColor: grey[800]
-    },
-    icon: { fill: '#fff' }
-});
-
 class VoteView extends Component {
+    
     render() {
         const { classes, vote, locationData, updatedLocation } = this.props;
         const time = updatedLocation ? updatedLocation.updated_at : locationData.updated_at;
         const localTime = (new Date(time)).toString().split(' ')[4];
         const numberOfVotes = updatedLocation ? updatedLocation.vote_number : locationData.vote_number;
         const percentage = updatedLocation ? updatedLocation.percentage : locationData.percentage;
-        
+
         const votingData = {
             location_id: locationData.id,
             user_id: locationData.user_id,
@@ -100,5 +76,29 @@ VoteView.propTypes = {
     updatedLocation: PropTypes.object,
 };
 
+const styles = () => ({
+    root: {
+        flexGrow: 1,
+    },
+    possibility: {
+        width: 100,
+        height: 100,
+        padding: 5,
+        color: '#fff',
+        backgroundColor: grey[400],
+    },
+    votes: {
+        marginBottom: 8,
+        color: '#fff',
+        backgroundColor: grey[800]
+    },
+    lastEdit: {
+        marginTop: 8,
+        marginBottom: 18,
+        color: '#fff',
+        backgroundColor: grey[800]
+    },
+    icon: { fill: '#fff' }
+});
 
 export default withStyles(styles)(VoteView);

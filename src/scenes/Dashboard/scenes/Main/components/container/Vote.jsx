@@ -15,8 +15,8 @@ class Vote extends Component {
     toggleVoting = (votingData) => {
         let { vote } = this.props;
         vote(votingData,
-            () => openSnackbar('You voted successfully!', 'success', { vertical: 'top', horizontal: 'center' }),
-            error => openSnackbar(error, 'error', { vertical: 'top', horizontal: 'center' })
+            successMessage => openSnackbar(successMessage, 'success', { vertical: 'top', horizontal: 'center' }),
+            errorMessage => openSnackbar(errorMessage, 'error', { vertical: 'top', horizontal: 'center' })
         );
     }
     render() {

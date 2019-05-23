@@ -5,8 +5,6 @@ import SetPatrolView from '../presentational/SetPatrolView.jsx';
 import { addLocationActions } from '../../actions/addlocation.action.js';
 import Notifier, { openSnackbar } from '~/src/components/presentational/Notifier.jsx';
 
-
-
 class SetPatrol extends Component {
     constructor(props) {
         super(props);
@@ -15,8 +13,8 @@ class SetPatrol extends Component {
     toggleAddPatrol = (locationData) => {
         let { addlocation } = this.props;
         addlocation(locationData,
-            () => openSnackbar('Thank you for contributing!', 'success', { vertical: 'top', horizontal: 'center' }),
-            error => openSnackbar(error, 'error', { vertical: 'top', horizontal: 'center' })
+            successMessage => openSnackbar(successMessage, 'success', { vertical: 'top', horizontal: 'center' }),
+            errorMessage => openSnackbar(errorMessage, 'error', { vertical: 'top', horizontal: 'center' })
         );
     }
 
